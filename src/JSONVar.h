@@ -40,6 +40,7 @@ public:
   JSONVar(long l);
   JSONVar(unsigned long ul);
   JSONVar(double d);
+  JSONVar(double d, const char* format);
   JSONVar(const char* s);
   JSONVar(const String& s);
   JSONVar(const JSONVar& v);
@@ -111,7 +112,7 @@ public:
   static String typeof_(const JSONVar& value);
 
 private:
-  JSONVar(struct cJSON* json, struct cJSON* parent);
+  explicit JSONVar(struct cJSON* json, struct cJSON* parent);
 
   void replaceJson(struct cJSON* json);
 

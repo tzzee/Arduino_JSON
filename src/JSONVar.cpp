@@ -87,6 +87,12 @@ JSONVar::JSONVar(double d) :
   *this = d;
 }
 
+JSONVar::JSONVar(double d, const char* format) :
+  JSONVar()
+{
+  replaceJson(cJSON_CreateNumber(d, format));
+}
+
 JSONVar::JSONVar(const char* s)  :
   JSONVar()
 {
@@ -129,7 +135,7 @@ JSONVar::JSONVar(nullptr_t)  :
 }
 
 JSONVar::JSONVar() :
-  JSONVar(NULL, NULL)
+  JSONVar((struct cJSON*)NULL, (struct cJSON*)NULL)
 {
 }
 
@@ -267,47 +273,47 @@ void JSONVar::operator=(bool b)
 
 void JSONVar::operator=(char i)
 {
-    replaceJson (cJSON_CreateNumber (i));
+    replaceJson (cJSON_CreateNumber (i, NULL));
 }
 
 void JSONVar::operator=(unsigned char i)
 {
-    replaceJson (cJSON_CreateNumber (i));
+    replaceJson (cJSON_CreateNumber (i, NULL));
 }
 
 void JSONVar::operator=(short i)
 {
-    replaceJson (cJSON_CreateNumber (i));
+    replaceJson (cJSON_CreateNumber (i, NULL));
 }
 
 void JSONVar::operator=(unsigned short i)
 {
-    replaceJson (cJSON_CreateNumber (i));
+    replaceJson (cJSON_CreateNumber (i, NULL));
 }
 
 void JSONVar::operator=(int i)
 {
-    replaceJson (cJSON_CreateNumber (i));
+    replaceJson (cJSON_CreateNumber (i, NULL));
 }
 
 void JSONVar::operator=(unsigned int i)
 {
-    replaceJson (cJSON_CreateNumber (i));
+    replaceJson (cJSON_CreateNumber (i, NULL));
 }
 
 void JSONVar::operator=(long l)
 {
-  replaceJson(cJSON_CreateNumber(l));
+  replaceJson(cJSON_CreateNumber(l, NULL));
 }
 
 void JSONVar::operator=(unsigned long ul)
 {
-  replaceJson(cJSON_CreateNumber(ul));
+  replaceJson(cJSON_CreateNumber(ul, NULL));
 }
 
 void JSONVar::operator=(double d)
 {
-  replaceJson(cJSON_CreateNumber(d));
+  replaceJson(cJSON_CreateNumber(d, NULL));
 }
 
 void JSONVar::operator=(const char* s)
@@ -389,7 +395,7 @@ JSONVar JSONVar::operator[](const JSONVar& key)
     return (*this)[str];
   }
 
-  return JSONVar(NULL, NULL);
+  return JSONVar((struct cJSON*)NULL, (struct cJSON*)NULL);
 }
 
 int JSONVar::length() const
@@ -406,7 +412,7 @@ int JSONVar::length() const
 JSONVar JSONVar::keys() const
 {
   if (!cJSON_IsObject(_json)) {
-    return JSONVar(NULL, NULL);
+    return JSONVar((struct cJSON*)NULL, (struct cJSON*)NULL);
   }
 
   int length = cJSON_GetArraySize(_json);
@@ -564,7 +570,7 @@ JSONVar JSONVar::filter(const char* key, const char* value) const {
   }
 
   if(cJSON_GetArraySize(json) == 0){
-    return JSONVar(NULL, NULL);
+    return JSONVar((struct cJSON*)NULL, (struct cJSON*)NULL);
   }
   
   if(cJSON_GetArraySize(json) == 1){
