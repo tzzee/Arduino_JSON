@@ -66,8 +66,10 @@ public:
   operator const String () const;
 
   void operator=(const JSONVar& v);
+#if 0
 #if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
   JSONVar& operator=(JSONVar&& v);
+#endif
 #endif
   void operator=(bool b);
   void operator=(char i);

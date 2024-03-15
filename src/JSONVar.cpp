@@ -247,6 +247,7 @@ void JSONVar::operator=(const JSONVar& v)
   }
 }
 
+#if 0
 #if __cplusplus >= 201103L || defined(__GXX_EXPERIMENTAL_CXX0X__)
 JSONVar& JSONVar::operator=(JSONVar&& v)
 {
@@ -264,6 +265,7 @@ JSONVar& JSONVar::operator=(JSONVar&& v)
 
   return *this;
 }
+#endif
 #endif
 
 void JSONVar::operator=(bool b)
